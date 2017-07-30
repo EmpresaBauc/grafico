@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <title> graficos </title>
+
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+          google.load("visualization", "1",{packages:["corechart"]});
+          google.setOnLoadCallback(drawChart);
+          function drawChart()
+          {
+            //montando o array com os dados
+            var data = google.visualization.arrayToDataTable([
+              ['Modulos', 'Porcentagem', {role: "style"}],
+              ['Contábil', 100, 'color: blue'],
+              ['Cotação WEB', 10, 'color: blue'],
+              ['Financeiro', 80, 'color: blue'],
+              ['Fiscal', 70, 'color: blue'],
+              ['Materiais', 40, 'color: blue'],
+              ['Tnfe', 10, 'color: blue'],
+              ['Wms', 90, 'color: blue'],
+            ]);
+
+            //opções para o gráfico de barras
+            var options =
+            {
+              title: 'Performance',
+              vAxis: {title:'Anos', titleTextStyle:{color:'red'}}//legenda vertical
+            };
+
+            //instanciando e desenhando o gráfico de barras
+            var barras = new google.visualization.BarChart(document.getElementById('barras'));
+
+
+            google.visualization.events.addListener(barras,"select",function(e){
+              //pega o array de itens selecionados
+              var selection = barras.getSelection();
+
+              //varre o array para montar a string que sera exibida
+              var tam = selection.lenght;
+              var str ="teste";
+
+
+          alert(str);
+        });
+
+          barras.draw(data, options);
+        }
+        </script>
+      <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    </head>
+    <body>
+
+    <div class="container">
+        <div id="barras" style="width: 900px; height: 500px;"></div>
+
+    </div>
+
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    </body>
+</html>
