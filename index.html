@@ -5,10 +5,12 @@
         <title> graficos </title>
 
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
         <script type="text/javascript">
           google.charts.load('current',{packages:["corechart"]});
           google.charts.setOnLoadCallback(drawIntegralChart);
           google.charts.setOnLoadCallback(drawFrenteLojaChart);
+          google.charts.setOnLoadCallback(drawOutrosChart);
 
 
 
@@ -30,7 +32,7 @@
             var options =
             {
               title: 'Módulos',
-              vAxis: {title:'Módulos', titleTextStyle:{color:'red'}}//legenda vertical
+              vAxis: {title:'Módulos', titleTextStyle:{color:'blue'}}//legenda vertical
             };
 
 
@@ -39,40 +41,87 @@
             //instanciando e desenhando o gráfico de barras
             var barras = new google.visualization.BarChart(document.getElementById('barras_Integral_div'));
 
-            google.visualization.events.addListener(barras,"select",function drawFrenteLojaChart()
-          {
-            //montando o array com os dados
-            var data = google.visualization.arrayToDataTable([
-              ['Modulos', 'Porcentagem', {role: "style"}],
-              ['Contábil', 100, 'color: blue'],
-              ['Cotação WEB', 10, 'color: blue'],
-              ['Financeiro', 80, 'color: blue'],
-              ['Fiscal', 70, 'color: blue'],
-              ['Materiais', 40, 'color: blue'],
-              ['Tnfe', 10, 'color: blue'],
-              ['Wms', 90, 'color: blue'],
-            ]);
+            google.visualization.events.addListener(barras,"select",function(e){
+              //pega o array de itens selecionados
+              var $wrapper = document.querySelector('.wrapper'),
 
-            //opções para o gráfico de barras
-            var options =
-            {
-              title: 'Módulos',
-              vAxis: {title:'Módulos', titleTextStyle:{color:'red'}}//legenda vertical
-            };
+        	    // Novo HTML que será inserido
+        	    HTMLNovo = 'Integral </br>';
 
-            //instanciando e desenhando o gráfico de barras
-            var barrasfrenteloja = new google.visualization.BarChart(document.getElementById('barras_FrenteLoja_div'));
-            barrasfrenteloja.draw(data, options);
-        });
-             
+            	// Coloca a nova string(que é o HTML) no DOM
+            	$wrapper.innerHTML = HTMLNovo;
+              });
+
             barras.draw(data, options);
           }
 
-          
+
+
+
+
+          function drawFrenteLojaChart()
+          {
+          //montando o array com os dados
+                var data = google.visualization.arrayToDataTable([
+                  ['Modulos', 'Porcentagem', {role: "style"}],
+                  ['Frente Windows', 100, 'color: blue'],
+                  ['Frente Linux', 10, 'color: blue'],
+                  ['Scantech', 80, 'color: blue'],
+                  ['TEF', 70, 'color: blue'],
+
+                ]);
+
+                //opções para o gráfico de barras
+                var options =
+                {
+                  title: 'Módulos',
+                  vAxis: {title:'Módulos', titleTextStyle:{color:'blue'}}//legenda vertical
+                };
+
+                //instanciando e desenhando o gráfico de barras
+                var barrasfrenteloja = new google.visualization.BarChart(document.getElementById('barras_FrenteLoja_div'));
+
+                google.visualization.events.addListener(barrasfrenteloja,"select",function(e){
+                  //pega o array de itens selecionados
+                  var $wrapper = document.querySelector('.wrapper'),
+
+                  // Novo HTML que será inserido
+                  HTMLNovo = 'Frente </br>';
+
+                  // Coloca a nova string(que é o HTML) no DOM
+                  $wrapper.innerHTML = HTMLNovo;
+                  });
+                barrasfrenteloja.draw(data, options);
+          }
+
+
+        function drawOutrosChart()
+        {
+        //montando o array com os dados
+              var data = google.visualization.arrayToDataTable([
+                ['Modulos', 'Porcentagem', {role: "style"}],
+                ['Gestor', 100, 'color: blue'],
+                ['Novo Erp', 10, 'color: blue'],
+
+              ]);
+
+              //opções para o gráfico de barras
+              var options =
+              {
+                title: 'Módulos',
+                vAxis: {title:'Módulos', titleTextStyle:{color:'blue'}}//legenda vertical
+              };
+
+              //instanciando e desenhando o gráfico de barras
+              var outros = new google.visualization.BarChart(document.getElementById('outros_div'));
+              outros.draw(data, options);
+      }
+
 
 
 
         </script>
+
       <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -84,9 +133,14 @@
     <div class="container">
         <div id="barras_Integral_div" style="width: 900px; height: 500px;"></div>
 
+        <div class="wrapper" style="width: 900px; height: 100px;"></div>
+
         <div id="barras_FrenteLoja_div" style="width: 900px; height: 500px;"></div>
 
+        <div id="outros_div" style="width: 900px; height: 500px;"></div>
+
     </div>
+
 
 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
